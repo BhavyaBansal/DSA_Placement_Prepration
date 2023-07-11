@@ -1,0 +1,33 @@
+class Pair{
+    int count;
+    int index;
+    Pair(int count,int index){
+        this.count = count;
+        this.index = index;
+    }
+}
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        HashMap<Integer,Pair> hm = new HashMap<Integer,Pair>();
+        int ans[] = new int[2];
+        for(int i=0;i<nums.length;i++){
+            if(!hm.containsKey(nums[i])){
+                hm.put(nums[i], new Pair(1,i));
+            }else{
+                int val = hm.get(nums[i]).count;
+                hm.put(nums[i], new Pair(val+1,i));
+            }
+        }
+        for(int i=0;i<nums.length;i++){
+            int num = target-nums[i];
+            if(hm.containsKey(num)){
+                ans[0] = i;
+                ans[1] = hm.get(num).index;
+                if(ans[0]!=ans[1]){
+                    break;
+                }
+            }
+        }
+        return ans;
+    }
+}
