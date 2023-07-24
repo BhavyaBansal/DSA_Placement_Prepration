@@ -1,0 +1,20 @@
+class GfG
+{
+    int maxLen(int arr[], int n)
+    {
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        hm.put(0,-1);
+        int sum = 0;
+        int maxsize = 0;
+        for(int i=0;i<n;i++){
+            sum+=arr[i];
+            if(hm.containsKey(sum)){
+                // System.out.println(i+" "+hm.get(sum));
+                maxsize = Math.max(maxsize,i - hm.get(sum));
+            }else{
+                hm.put(sum,i);
+            }
+        }
+        return maxsize;
+    }
+}

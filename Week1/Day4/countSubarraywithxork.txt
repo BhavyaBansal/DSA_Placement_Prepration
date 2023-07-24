@@ -1,0 +1,18 @@
+public class Solution {
+    public int solve(int[] A, int B) {
+        HashMap<Integer,Integer> hm = new HashMap<>();
+        hm.put(0,1);
+        int xor = 0;
+        int cnt = 0;
+        for(int i=0;i<A.length;i++){
+            xor=xor^A[i];
+            if(hm.containsKey(xor^B)){
+                cnt+=hm.get(xor^B);
+                hm.put(xor,hm.getOrDefault(xor,0)+1);
+            }else{
+                hm.put(xor,hm.getOrDefault(xor,0)+1);
+            }
+        }
+        return cnt;
+    }
+}
