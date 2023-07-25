@@ -1,0 +1,53 @@
+class Solution
+{
+    public static Node reverseLeftout(Node head){
+        if(head == null && head.next == null){
+            return head;
+        }
+        Node prev,curr,next;
+        prev = null;
+        curr = next = head;
+        while(curr != null)
+        {
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    public static Node reverse(Node node, int k)
+    {
+       //Your code here
+       if(node == null || k == 1){
+            return node;
+        }
+        Node dummy = new Node(0);
+        dummy.next = node;
+        Node pre = dummy,cur = dummy,nex = dummy;
+        int count = 0;
+        while(cur.next != null){
+            cur=cur.next;
+            count+=1;
+        }
+        while(count>=k){
+            cur = pre.next;
+            nex = cur.next;
+            for(int i=0;i<k-1;i++){
+                cur.next = nex.next;
+                nex.next = pre.next;
+                pre.next = nex;
+                nex = cur.next;
+            }
+            pre=cur;
+            count-=k;
+        }
+        if(count % k!=0){
+            Node gotNode = reverseLeftout(pre.next);
+            pre.next = gotNode;
+            return dummy.next;
+        }else{
+            return dummy.next;
+        }
+    }
+}
