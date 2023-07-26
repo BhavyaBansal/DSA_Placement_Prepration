@@ -1,0 +1,47 @@
+class Solution {
+    public Node copyRandomList(Node head) {
+
+        Node i1 = head;
+        while(i1!=null){
+            Node node = new Node(i1.val);
+            node.next = i1.next;
+            i1.next = node;
+            i1 = i1.next.next;
+        }
+        Node i2 = head;
+        while(i2!=null){
+            if(i2.random!=null){
+                i2.next.random = i2.random.next;
+            }
+            i2 = i2.next.next;
+        }
+        // i2 = head;
+        // Node phead = new Node(0);
+        // Node copy = phead;
+        // Node f2;
+        // while(i2!=null){
+        //     f2 = i2.next.next;
+        //     copy.next = i2.next;
+        //     i2.next = f2;
+        //     copy = copy.next;
+        //     i2 = i2.next;
+        // }
+        // return phead.next;
+        Node iter = head;
+        Node dummy = new Node(0);
+        Node ptr = dummy;
+        if(iter!=null){
+            Node front = iter.next.next;
+            dummy.next = iter.next;
+            while(front!=null){
+                iter.next = front;
+                iter = iter.next;
+                front = iter.next.next;
+                ptr = ptr.next;
+                ptr.next = iter.next;
+            }
+            iter.next = front;
+        }
+        return dummy.next;
+    }
+}
