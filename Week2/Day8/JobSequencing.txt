@@ -1,0 +1,37 @@
+class Solution
+{
+    //Function to find the maximum profit and the number of jobs done.
+    int[] JobScheduling(Job arr[], int n)
+    {
+        // Your code here
+        int ans[] = new int[2];
+        int jobCount = 0;
+        int maxProfit = 0;
+        int maxDeadline = Integer.MIN_VALUE;
+        for(int i=0;i<n;i++){
+            if(arr[i].deadline > maxDeadline){
+                maxDeadline = arr[i].deadline;
+            }
+        }
+        int sequence[] = new int[maxDeadline];
+        Arrays.sort(arr,(a,b)->b.profit-a.profit);
+        for(int i=0;i<arr.length;i++){
+            int cnt = 1;
+            while(arr[i].deadline - cnt >= 0 && sequence[arr[i].deadline - cnt] != 0){
+                cnt++;
+            }
+            if(arr[i].deadline - cnt >= 0){
+                sequence[arr[i].deadline - cnt] = arr[i].id;
+                jobCount+=1;
+                maxProfit+=arr[i].profit;
+            }
+        }
+        ans[0] = jobCount;
+        ans[1] = maxProfit;
+        // Job Sequence
+        // for(int i=0;i<sequence.length;i++){
+        //     System.out.print(sequence[i]+" ");
+        // }
+        return ans;
+    }
+}

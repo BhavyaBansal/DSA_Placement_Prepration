@@ -1,0 +1,31 @@
+class tuple{
+    int st;
+    int et;
+    int ind;
+    tuple(int st,int et,int ind){
+        this.st = st;
+        this.et = et;
+        this.ind = ind;
+    }
+}
+class Solution {
+    public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
+        // code here
+        ArrayList<tuple> ar = new ArrayList<tuple>();
+        ArrayList<Integer> ans = new ArrayList<Integer>();
+        for(int i=0;i<N;i++){
+            ar.add(new tuple(S[i],F[i],i));
+        }
+        Collections.sort(ar,(a,b)->a.et == b.et?a.ind-b.ind:a.et-b.et);
+        int endTime = ar.get(0).et;
+        ans.add(ar.get(0).ind + 1);
+        for(int i=1;i<ar.size();i++){
+            if(endTime < ar.get(i).st){
+                ans.add(ar.get(i).ind + 1);
+                endTime = ar.get(i).et;
+            }
+        }
+        Collections.sort(ans);
+        return ans;
+    }
+}

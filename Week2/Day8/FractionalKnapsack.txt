@@ -1,0 +1,43 @@
+class tuple{
+    int value,weight;
+    double valperwei;
+    tuple(int value,int weight,double valperwei){
+        this.value = value;
+        this.weight = weight;
+        this.valperwei = valperwei;
+    }
+}
+class itemComparator implements Comparator<tuple>
+{
+    @Override
+    public int compare(tuple a, tuple b) 
+    {
+        if(a.valperwei < b.valperwei) return 1; 
+        else if(a.valperwei > b.valperwei) return -1; 
+        else return 0; 
+    }
+}
+class Solution
+{
+    //Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n) 
+    {
+        double ans = 0;
+        ArrayList<tuple> ar = new ArrayList<tuple>();
+        for(int i=0;i<n;i++){
+            double val = (double)arr[i].value / (double)arr[i].weight;
+            ar.add(new tuple(arr[i].value,arr[i].weight,val));
+        }
+        Collections.sort(ar,new itemComparator());
+        for(int i=0;i<ar.size();i++){
+          if(W>ar.get(i).weight){
+              ans+=(double)ar.get(i).value;
+              W-=ar.get(i).weight;
+          }else{
+              ans += (double)W*ar.get(i).valperwei;
+              break;
+          } 
+        }
+        return ans;
+    }
+}

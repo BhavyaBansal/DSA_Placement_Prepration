@@ -1,0 +1,32 @@
+class tuple{
+    int st;
+    int et;
+    int ind;
+    tuple(int st,int et,int ind){
+        this.st = st;
+        this.et = et;
+        this.ind = ind;
+    }
+}
+class Solution 
+{
+    //Function to find the maximum number of meetings that can
+    //be performed in a meeting room.
+    public static int maxMeetings(int start[], int end[], int n)
+    {
+        ArrayList<tuple> ar = new ArrayList<tuple>();
+        int ans = 1;
+        for(int i=0;i<n;i++){
+            ar.add(new tuple(start[i],end[i],i));
+        }
+        Collections.sort(ar,(a,b)->a.et - b.et);
+        int endTime = ar.get(0).et;
+        for(int i=1;i<ar.size();i++){
+            if(endTime < ar.get(i).st){
+                ans+=1;
+                endTime = ar.get(i).et;
+            }
+        }
+        return ans;
+    }
+}
