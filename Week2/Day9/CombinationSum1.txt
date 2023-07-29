@@ -1,0 +1,22 @@
+class Solution {
+    public void findCombinationsSum(List<List<Integer>> ans,List<Integer> ar,int[] candidates,int target,int ind){
+        if(ind == candidates.length){
+            if(target == 0){
+                ans.add(new ArrayList<>(ar));
+            }
+            return;
+        }
+        if(candidates[ind] <= target){
+            ar.add(candidates[ind]);
+            findCombinationsSum(ans,ar,candidates,target-candidates[ind],ind);
+            ar.remove(ar.size()-1);
+        }
+        findCombinationsSum(ans,ar,candidates,target,ind+1);
+    } 
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> ar = new ArrayList<Integer>();
+        findCombinationsSum(ans,ar,candidates,target,0);
+        return ans;
+    }
+}

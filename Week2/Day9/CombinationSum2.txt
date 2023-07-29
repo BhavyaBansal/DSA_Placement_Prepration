@@ -1,0 +1,27 @@
+class Solution {
+    public void findsum2(int ind,int target,List<List<Integer>> li,List<Integer> l,int[] arr){
+        // if(ind == arr.length){
+        if(target == 0){
+            li.add(new ArrayList<Integer>(l));
+            return;
+        }
+        for(int i=ind;i<arr.length;i++){
+            if(i > ind && arr[i] == arr[i-1]){
+                continue;
+            }
+            if(arr[i]>target){
+                break;
+            }
+            l.add(arr[i]);
+            findsum2(i+1,target-arr[i],li,l,arr);
+            l.remove(l.size()-1);
+        }
+    }
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> li = new ArrayList<>();
+        List<Integer> l = new ArrayList<>();
+        Arrays.sort(candidates);
+        findsum2(0,target,li,l,candidates);
+        return li;
+    }
+}

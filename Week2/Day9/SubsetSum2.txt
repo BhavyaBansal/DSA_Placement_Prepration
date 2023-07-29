@@ -1,0 +1,18 @@
+class Solution {
+    public void finddistinct(List<List<Integer>> li,List<Integer> l,int nums[],int idx){
+        li.add(new ArrayList<Integer>(l));
+        for(int i=idx;i<nums.length;i++){
+            if(i>idx && nums[i]==nums[i-1]) continue;
+            l.add(nums[i]);
+            finddistinct(li,l,nums,i+1);
+            l.remove(l.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> li = new ArrayList<>();
+        List<Integer> l = new ArrayList<>();
+        Arrays.sort(nums);
+        finddistinct(li,l,nums,0);
+        return li;
+    }
+}
