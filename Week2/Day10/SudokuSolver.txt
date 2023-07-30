@@ -1,0 +1,83 @@
+class Solution {
+    public boolean solve(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j] == '.'){
+                    for(char k = '1';k<='9';k++){
+                        if(isValid(k,i,j,board)){
+                            board[i][j] = k;
+                            if(solve(board)){
+                                return true;
+                            }else{
+                                board[i][j] = '.';
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isValid(char val,int row,int col,char board[][]){
+        for(int i=0;i<9;i++){
+            if(board[i][col] == val){
+                return false;
+            }
+            if(board[row][i] == val){
+                return false;
+            }
+            if(board[3*(row/3) + i/3][3*(col/3) + i%3] == val){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void solveSudoku(char[][] board) {
+        solve(board);
+    }
+}
+
+
+
+// IS VALID Sudoku
+------------------
+class Solution {
+    public boolean solve(char[][] board){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                if(board[i][j] == '.'){
+                    for(char k = '1';k<='9';k++){
+                        if(isValid(k,i,j,board)){
+                            board[i][j] = k;
+                            if(solve(board)){
+                                return true;
+                            }else{
+                                board[i][j] = '.';
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    public boolean isValid(char val,int row,int col,char board[][]){
+        for(int i=0;i<9;i++){
+            if(board[i][col] == val){
+                return false;
+            }
+            if(board[row][i] == val){
+                return false;
+            }
+            if(board[3*(row/3) + i/3][3*(col/3) + i%3] == val){
+                return false;
+            }
+        }
+        return true;
+    }
+    public void solveSudoku(char[][] board) {
+        solve(board);
+    }
+}
