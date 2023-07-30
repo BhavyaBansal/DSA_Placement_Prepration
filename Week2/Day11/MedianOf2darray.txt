@@ -1,0 +1,31 @@
+class Solution {
+    int greaterthanmidCount(int mid,int arr[]){
+        int l = 0,r = arr.length - 1;
+        while(l<=r){
+            int m = (l+r)>>1;
+            if(arr[m] <= mid){
+                l=m+1;
+            }else{
+                r=m-1;
+            }
+        }
+        return l;
+    }
+    int median(int matrix[][], int R, int C) {
+        int low = 1;
+        int high = 100000000;
+        while(low<=high){
+            int mid = (low+high)>>1;
+            int cnt = 0;
+            for(int i=0;i<R;i++){
+                cnt += greaterthanmidCount(mid,matrix[i]);
+            }
+            if(cnt <= (R*C)/2){
+                low=mid+1;
+            }else{
+                high=mid-1;
+            }
+        }
+        return low;
+    }
+}
