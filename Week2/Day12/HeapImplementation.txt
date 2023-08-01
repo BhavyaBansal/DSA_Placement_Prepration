@@ -1,0 +1,83 @@
+package HeapImplementation;
+import java.io.*;
+import java.util.*;
+class Heap{
+	int nofchilds;
+	ArrayList<Integer> hp;
+	Heap(int calcchilds){
+		if(calcchilds<=0) {
+			System.out.println("Your provided value should be Greater than 0!!");
+			System.exit(0);
+		}
+		this.nofchilds = (int)Math.pow(2, calcchilds);
+		hp = new ArrayList<>();
+	}
+	public void swap(int x,int y) {
+		int xval = hp.get(x);
+		int yval = hp.get(y);
+		hp.set(x, yval);
+		hp.set(y, xval);
+	}
+	public void upheapify(int idx) {
+		if(idx == 0) {
+			return;
+		}
+		int par = (idx-1)/nofchilds;
+		if(hp.get(idx)>hp.get(par)) {
+			swap(idx,par);
+			upheapify(par);
+		}
+	}
+	public void downheapify(int idx) {
+		int max = idx;
+		for(int i=1;i<=nofchilds;i++) {
+			int child = nofchilds*idx+i;
+			if(child<hp.size() && hp.get(child)>hp.get(max)) {
+				max = child;
+			}
+		}
+		if(max!=idx) {
+			swap(idx,max);
+			downheapify(max);
+		}
+	}
+	public void insert(int x) {
+		hp.add(x);
+		upheapify(hp.size()-1);
+	}
+	public int remove() {
+		if(hp.size()==0) {
+			System.out.println("UnderFlow");
+			return -1;
+		}
+		swap(0,hp.size()-1);
+		int val = hp.remove(hp.size()-1);
+		downheapify(0);
+		return val;
+	}
+	public int peek() {
+		if(hp.size()==0) {
+			System.out.println("UnderFlow");
+			return -1;
+		}
+		return hp.get(0);
+	}
+}
+public class MaxHeapPow2 {
+	public static void main(String args[]){
+		int arr[] = new int[]{5,10,30,40,15,45,42,55,50,35,20,45,7,6,1,99,100,105,88,91};
+		Heap hp = new Heap(4);
+		System.out.println(hp.peek());
+		System.out.println(hp.remove());
+		for(int i=0;i<arr.length;i++) {
+			hp.insert(arr[i]);
+		}
+		System.out.println(hp.peek());
+		System.out.println(hp.remove());
+		System.out.println(hp.peek());
+		System.out.println(hp.remove());
+		System.out.println(hp.peek());
+		hp.insert(111);
+		System.out.println(hp.peek());
+	}
+}
