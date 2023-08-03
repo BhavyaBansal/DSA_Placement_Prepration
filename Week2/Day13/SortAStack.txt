@@ -1,0 +1,22 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static void sorting(Stack<Integer> stack,int num){
+		if(stack.empty() || stack.peek()<num){
+			stack.push(num);
+			return;
+		}
+		int n = stack.pop();
+		sorting(stack,num);
+		stack.push(n);
+	}
+	public static void sortStack(Stack<Integer> stack) {
+		if(stack.empty()){
+			return;
+		}
+		int num = stack.pop();
+		sortStack(stack);
+		sorting(stack,num);
+	}
+
+}
